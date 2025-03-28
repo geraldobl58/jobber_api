@@ -13,7 +13,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix(globalPrefix);
 
-  const port = app.get(ConfigService).getOrThrow('AUTH_PORT') || 3000;
+  const port = app.get(ConfigService).getOrThrow('PORT') || 3000;
 
   await app.listen(port);
   Logger.log(
