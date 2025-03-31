@@ -5,16 +5,24 @@ import { ConfigModule } from '@nestjs/config';
 
 import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule,
     PrismaModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
+      context: ({ req, res }) => ({ req, res }),
       driver: ApolloDriver,
+      playground: {
+        settings: {
+          'request.credentials': 'include',
+        },
+      },
       autoSchemaFile: true,
     }),
     UsersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
